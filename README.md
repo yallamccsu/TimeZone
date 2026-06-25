@@ -1,35 +1,46 @@
-# Time Zone Viewer (Tkinter GUI)
+# U.S. City Timezone Lookup Tool
 
-This project is a Python GUI application that displays the time zone for a selected U.S. city using a `tkinter` listbox. It allows users to click on a city name and instantly see its corresponding time zone.
+A Python desktop application for querying timezone metadata by U.S. city. 
+Built with Tkinter, the tool displays timezone name, UTC offset, and DST 
+observance for any selected city from a structured registry.
 
 ## Features
 
-- Simple, clean user interface
-- Listbox of major U.S. cities
-- Displays the appropriate time zone when a city is selected
-- Includes a "Quit" button to exit the application
-
-## Cities & Time Zones
-
-- **Denver** – Mountain Time
-- **Honolulu** – Hawaii-Aleutian Time
-- **Minneapolis** – Central Time
-- **New York** – Eastern Time
-- **San Francisco** – Pacific Time
+- Select any city from a sortable listbox to instantly retrieve its timezone data
+- Displays timezone name, UTC offset, and DST observance simultaneously
+- Cities sorted west to east by UTC offset for intuitive navigation
+- Query history logged internally with most-selected city tracking
+- Reset and Quit controls for clean session management
+- Input-safe with graceful fallback if a lookup returns no result
 
 ## How to Run
 
-1. Make sure Python is installed on your computer.
-2. Save the code as `time_zone_viewer.py`
-3. Open a terminal or command prompt.
-4. Navigate to the folder where the file is saved.
-5. Run the program with:
+```bash
+python TimeZone.py
+```
 
+No external dependencies. Requires Python 3 with Tkinter, which is 
+included in all standard Python installations.
 
-## What I Learned
+## Cities Covered
 
-- How to build GUI applications in Python using `tkinter`
-- Creating and populating a `Listbox` with selectable items
-- Using `StringVar` to dynamically update UI elements
-- Handling user events with `bind()` and event-driven functions
-- Mapping data using dictionaries for clean logic
+| City          | Timezone         | UTC Offset | DST |
+|---------------|------------------|------------|-----|
+| Honolulu      | Hawaii-Aleutian  | UTC-10     | No  |
+| Anchorage     | Alaska           | UTC-9      | Yes |
+| San Francisco | Pacific          | UTC-8      | Yes |
+| Denver        | Mountain         | UTC-7      | Yes |
+| Minneapolis   | Central          | UTC-6      | Yes |
+| New York      | Eastern          | UTC-5      | Yes |
+
+## Technical Highlights
+
+- `TimeZoneRecord` frozen dataclass stores all city metadata immutably
+- `Region` enum drives classification logic independently of display
+- `TimeZoneLookupEngine` logs every query and tracks session activity
+- `ResultRowFactory` builds all output rows from a shared template
+- Rendering and lookup logic fully separated for clean architecture
+
+## Tech Stack
+
+Python 3 | Tkinter | dataclasses | enums | functools
